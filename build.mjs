@@ -89,4 +89,5 @@ for (const file of ['style.css', 'app.js']) {
 }
 
 fs.cpSync('assets', 'dist/assets', { recursive: true });
-console.log(`Successfully built ${routes.length} static routes and copied all assets.`);
+fs.writeFileSync('index.html', htmlTemplate);
+console.log(`Successfully built ${routes.length} static routes, wrote root index.html, and copied all assets.`);

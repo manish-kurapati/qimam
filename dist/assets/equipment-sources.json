@@ -1,0 +1,112 @@
+{
+  "excavator": {
+    "file": "equipment-sany-excavator.jpg",
+    "source": "https://www.sanyglobal.com/product/excavator/large_excavator/",
+    "image_url": "https://sanyglobal-img.sany.com.cn/product/goods/20200817/36.5T~75T%20Large-190947?x-oss-process=image/resize,w_1000,h_620,m_fill,limit_0",
+    "alt": "Over 36T Large Excavator",
+    "size": [
+      1000,
+      620
+    ]
+  },
+  "wheel-loader": {
+    "file": "equipment-sany-wheel-loader.jpg",
+    "source": "https://www.sanyglobal.com/product/loader/wheel_loader_new/",
+    "image_url": "https://sanyglobal-img.sany.com.cn/prod/20230615/wheel-loader_091223.jpg?x-oss-process=image/resize,w_1000,h_620,m_fill,limit_0",
+    "alt": "Wheel Loader",
+    "size": [
+      1000,
+      620
+    ]
+  },
+  "grader": {
+    "file": "equipment-sany-grader.png",
+    "source": "https://www.sanyglobal.com/product/road_machinery/motor_grader/",
+    "image_url": "https://sanyglobal-img.sany.com.cn/prod/20250704/STG-800-480_144543.png?x-oss-process=image/resize,w_1000,h_620,m_fill,limit_0",
+    "alt": "STG Series Motor Grader",
+    "size": [
+      1000,
+      620
+    ]
+  },
+  "dump-truck": {
+    "file": "equipment-sany-dump-truck.png",
+    "source": "https://www.sanyglobal.com/product/truck/dump_truck/",
+    "image_url": "https://sanyglobal-img.sany.com.cn/prod/20250707/燃油车_160230.png?x-oss-process=image/resize,w_1000,h_620,m_fill,limit_0",
+    "alt": "Dump Truck",
+    "size": [
+      1000,
+      620
+    ]
+  },
+  "water-tanker": {
+    "file": "equipment-sany-water-tanker.png",
+    "source": "https://www.sanyglobal.com/product/sanitation_equipment/sprinkler_truck/",
+    "image_url": "https://sanyglobal-img.sany.com.cn/prod/20240924/3. 18T纯电动洒水车_193043.png?x-oss-process=image/resize,w_1000,h_620,m_fill,limit_0",
+    "alt": "18T Electric Sprinkler",
+    "size": [
+      1000,
+      620
+    ]
+  },
+  "asphalt-paver": {
+    "file": "equipment-sany-asphalt-paver.png",
+    "source": "https://www.sanyglobal.com/product/road_machinery/paver/",
+    "image_url": "https://sanyglobal-img.sany.com.cn/prod/20250704/SAP-800-480_143918.png?x-oss-process=image/resize,w_1000,h_620,m_fill,limit_0",
+    "alt": "SAP Series Asphalt Paver",
+    "size": [
+      1000,
+      620
+    ]
+  },
+  "asphalt-milling": {
+    "file": "equipment-sany-asphalt-milling.png",
+    "source": "https://www.sanyglobal.com/product/road_machinery/milling_machine/",
+    "image_url": "https://sanyglobal-img.sany.com.cn/prod/20250704/SCM-800-480_113804.png?x-oss-process=image/resize,w_1000,h_620,m_fill,limit_0",
+    "alt": "Milling Machine",
+    "size": [
+      1000,
+      620
+    ]
+  },
+  "roller": {
+    "file": "equipment-sany-roller.png",
+    "source": "https://www.sanyglobal.com/product/road_machinery/roller/",
+    "image_url": "https://sanyglobal-img.sany.com.cn/prod/20250704/SSR-800-480-AC_112921.png?x-oss-process=image/resize,w_1000,h_620,m_fill,limit_0",
+    "alt": "Single Drum Roller (Single Drive)",
+    "size": [
+      1000,
+      620
+    ]
+  },
+  "crusher": {
+    "file": "equipment-sany-crusher.jpg",
+    "source": "https://www.sanyglobal.com/product/mobile_crusher/mobilejawcrusher/",
+    "image_url": "https://sanyglobal-img.sany.com.cn/prod/20231117/移动颚式破碎站SCJM1208HC8-3_094426.jpg?x-oss-process=image/resize,w_1000,h_620,m_fill,limit_0",
+    "alt": "Mobile Jaw Crusher",
+    "size": [
+      1000,
+      620
+    ]
+  },
+  "backhoe": {
+    "file": "equipment-sany-backhoe.jpg",
+    "source": "https://www.sanyglobal.com/product/loader/backhoe_loader_new/",
+    "image_url": "https://sanyglobal-img.sany.com.cn/prod/20230626/02_203431.jpg?x-oss-process=image/resize,w_1000,h_620,m_fill,limit_0",
+    "alt": "Backhoe Loader",
+    "size": [
+      1000,
+      620
+    ]
+  },
+  "mobile-crane": {
+    "file": "equipment-sany-mobile-crane.jpg",
+    "source": "https://www.sanyglobal.com/product/crane/truck_crane/",
+    "image_url": "https://sanyglobal-img.sany.com.cn/product/goods/20220627/STC300T5-225032.jpg?x-oss-process=image/resize,w_1000,h_620,m_fill,limit_0",
+    "alt": "Below 45T Truck Crane",
+    "size": [
+      1000,
+      620
+    ]
+  }
+}

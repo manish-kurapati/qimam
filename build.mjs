@@ -64,17 +64,19 @@ const htmlTemplate = `<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#10374d">
-  <meta name="description" content="شركة قمم الإنتاج للمقاولات العامة — مقاول مصنف بالدرجة الأولى متخصص في الأعمال الترابية والبنية التحتية، سفلتة الطرق، وتأهيل المواقع في المملكة العربية السعودية.">
-  <title>Qimam Al-Intaj Contracting Co. | شركة قمم الإنتاج للمقاولات</title>
+  <meta name="theme-color" content="#0c2029">
+  <meta name="description" content="Qimam Al-Intaj Contracting Co. Ltd. specializes in earthworks, excavation, backfilling and infrastructure-related contracting in Saudi Arabia.">
+  <title>Qimam Al-Intaj Contracting Co. Ltd.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Manrope:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css?v=${Date.now()}">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="/assets/hero-earthworks-v2.png" fetchpriority="high">
+  <link rel="stylesheet" href="/experience.css?v=${Date.now()}">
 </head>
 <body>
   <div id="app"></div>
-  <script src="/app.js?v=${Date.now()}" defer></script>
+  <script src="/workflows.js?v=${Date.now()}" defer></script>
+  <script src="/experience.js?v=${Date.now()}" defer></script>
 </body>
 </html>`;
 
@@ -84,7 +86,7 @@ for (const route of routes) {
   fs.writeFileSync(path.join(dir, 'index.html'), htmlTemplate);
 }
 
-for (const file of ['style.css', 'app.js']) {
+for (const file of ['experience.css', 'experience.js', 'workflows.js']) {
   fs.copyFileSync(file, path.join('dist', file));
 }
 

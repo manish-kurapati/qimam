@@ -9,11 +9,11 @@ const reply = (res, status, data) => {
   res.end(JSON.stringify(data));
 };
 const base = () => process.env.SUPABASE_URL || 'https://uiqtblxolrxvxojirrou.supabase.co';
-const key = () => process.env.SUPABASE_SERVICE_ROLE_KEY;
+const key = () => process.env.SUPABASE_SECRET_KEY;
 async function db(path, method = 'GET', data, extra = {}) {
   const response = await fetch(base() + path, {
     method,
-    headers: { apikey: key(), Authorization: `Bearer ${key()}`, ...(data !== undefined ? { 'Content-Type': 'application/json', Prefer: 'return=representation' } : {}), ...extra },
+    headers: { apikey: key(), ...(data !== undefined ? { 'Content-Type': 'application/json', Prefer: 'return=representation' } : {}), ...extra },
     body: data === undefined ? undefined : JSON.stringify(data)
   });
   if (!response.ok) throw new Error(`Supabase ${response.status}: ${(await response.text()).slice(0, 200)}`);
@@ -72,7 +72,7 @@ function imageType(bytes) {
 }
 export default async function handler(req, res) {
   try {
-    if (!key()) return reply(res, 503, { error: 'Set SUPABASE_SERVICE_ROLE_KEY on the server.' });
+    if (!key()) return reply(res, 503, { error: 'Admin is temporarily unavailable. Please try again later.' });
     const url = new URL(req.url, 'http://localhost'); const action = url.searchParams.get('action');
     if (action === 'content' && req.method === 'GET') {
       const route = url.searchParams.get('route') || '/'; const lang = url.searchParams.get('lang') || 'en';
@@ -115,7 +115,7 @@ export default async function handler(req, res) {
       const file = part(bytes, boundary, 'file');
       if (!file || file.length > 10 * 1024 * 1024 || !imageType(file)) return reply(res, 400, { error: 'Choose a JPG, PNG, WebP or GIF under 10 MB.' });
       const [ext, mime] = imageType(file); const name = crypto.randomBytes(16).toString('hex') + '.' + ext;
-      const uploaded = await fetch(`${base()}/storage/v1/object/cms-media/${name}`, { method: 'POST', headers: { apikey: key(), Authorization: `Bearer ${key()}`, 'Content-Type': mime, 'Cache-Control': '3600' }, body: file });
+      const uploaded = await fetch(`${base()}/storage/v1/object/cms-media/${name}`, { method: 'POST', headers: { apikey: key(), 'Content-Type': mime, 'Cache-Control': '3600' }, body: file });
       if (!uploaded.ok) throw new Error(`Storage ${uploaded.status}: ${(await uploaded.text()).slice(0, 200)}`);
       return reply(res, 201, { url: `${base()}/storage/v1/object/public/cms-media/${name}` });
     }
@@ -145,6 +145,6 @@ export default async function handler(req, res) {
     return reply(res, 404, { error: 'Unknown action.' });
   } catch (error) {
     console.error('CMS request failed:', error);
-    return reply(res, 503, { error: 'CMS database or storage is unavailable. Check Supabase setup.' });
+    return reply(res, 503, { error: 'Admin is temporarily unavailable. Please try again later.' });
   }
 }

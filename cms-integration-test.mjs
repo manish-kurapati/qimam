@@ -38,7 +38,7 @@ const api = http.createServer(handler);
 const backendPort = await listen(backend);
 const apiPort = await listen(api);
 process.env.SUPABASE_URL = `http://127.0.0.1:${backendPort}`;
-process.env.SUPABASE_SERVICE_ROLE_KEY = 'integration-test-service-key';
+process.env.SUPABASE_SECRET_KEY = 'integration-test-service-key';
 process.env.QIMAM_ADMIN_PASSCODE = 'Initial-Test-Passcode-123';
 const base = `http://127.0.0.1:${apiPort}/api/cms.php?action=`;
 let cookie = '';
@@ -75,5 +75,9 @@ try {
   assert.equal((await call('logout', { csrf }))[0], 200);
   assert.equal((await call('login', { passcode: process.env.QIMAM_ADMIN_PASSCODE }))[0], 401);
   assert.equal((await call('login', { passcode: 'Replacement-Passcode-456' }))[0], 200);
+  delete process.env.SUPABASE_SECRET_KEY;
+  result = await call('status');
+  assert.equal(result[0], 503);
+  assert.equal(result[1].error, 'Admin is temporarily unavailable. Please try again later.');
   console.log('CMS HTTP integration test passed: login, auth, content CRUD, upload, passcode change, logout.');
 } finally { await close(api); await close(backend); }

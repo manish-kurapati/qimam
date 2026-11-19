@@ -8,20 +8,19 @@ Bilingual static website with a content editor at `/admin/`. Website pages are b
 2. Set these **server-side** environment variables in Vercel for Preview and Production:
 
    - `SUPABASE_URL=https://uiqtblxolrxvxojirrou.supabase.co`
-   - `SUPABASE_SERVICE_ROLE_KEY=` the project's service-role JWT.
+   - `SUPABASE_SECRET_KEY=` the project's `sb_secret_` key.
    - `QIMAM_ADMIN_PASSCODE=` a private initial passcode of 12–200 characters.
 
-   Never use the service-role key in browser code or a `VITE_` variable. The publishable and anon keys are not needed for this server-side CMS.
+   Never use the secret key in browser code or a `VITE_` variable. The publishable and anon keys are not needed for this server-side CMS.
 3. Deploy the branch. The first successful login seeds a hash of `QIMAM_ADMIN_PASSCODE` in `cms_admin`; later edits to that environment variable do not change the active passcode. Use **Change passcode** in `/admin/` to change it.
 
-Since credentials were shared in chat, rotate the service-role and secret keys in Supabase after deploying and update the Vercel environment variables. Keep the admin passcode private.
+Since credentials were shared in chat, rotate the secret key in Supabase after deploying and update the Vercel environment variable. Keep the admin passcode private.
 
 ## Run locally (PowerShell)
 
+Create `.env.local` from `.env.example` and fill in the server-only values. `.env.local` is ignored by Git and loaded by `dev:cms`.
+
 ```powershell
-$env:SUPABASE_URL = 'https://uiqtblxolrxvxojirrou.supabase.co'
-$env:SUPABASE_SERVICE_ROLE_KEY = '<service-role JWT from Supabase>'
-$env:QIMAM_ADMIN_PASSCODE = '<your private initial passcode, at least 12 characters>'
 npm.cmd run build
 npm.cmd run dev:cms
 ```

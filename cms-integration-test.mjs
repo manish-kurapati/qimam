@@ -75,5 +75,9 @@ try {
   assert.equal((await call('logout', { csrf }))[0], 200);
   assert.equal((await call('login', { passcode: process.env.QIMAM_ADMIN_PASSCODE }))[0], 401);
   assert.equal((await call('login', { passcode: 'Replacement-Passcode-456' }))[0], 200);
+  delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+  result = await call('status');
+  assert.equal(result[0], 503);
+  assert.equal(result[1].error, 'Admin is temporarily unavailable. Please try again later.');
   console.log('CMS HTTP integration test passed: login, auth, content CRUD, upload, passcode change, logout.');
 } finally { await close(api); await close(backend); }

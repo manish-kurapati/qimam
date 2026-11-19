@@ -72,7 +72,7 @@ function imageType(bytes) {
 }
 export default async function handler(req, res) {
   try {
-    if (!key()) return reply(res, 503, { error: 'Set SUPABASE_SERVICE_ROLE_KEY on the server.' });
+    if (!key()) return reply(res, 503, { error: 'Admin is temporarily unavailable. Please try again later.' });
     const url = new URL(req.url, 'http://localhost'); const action = url.searchParams.get('action');
     if (action === 'content' && req.method === 'GET') {
       const route = url.searchParams.get('route') || '/'; const lang = url.searchParams.get('lang') || 'en';
@@ -145,6 +145,6 @@ export default async function handler(req, res) {
     return reply(res, 404, { error: 'Unknown action.' });
   } catch (error) {
     console.error('CMS request failed:', error);
-    return reply(res, 503, { error: 'CMS database or storage is unavailable. Check Supabase setup.' });
+    return reply(res, 503, { error: 'Admin is temporarily unavailable. Please try again later.' });
   }
 }

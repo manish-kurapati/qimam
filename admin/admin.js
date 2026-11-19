@@ -13,10 +13,10 @@ async function api(action, data, multipart = false) {
   }
   let response;
   try { response = await fetch('/api/cms.php?action=' + action, options); }
-  catch (_) { throw new Error('Could not reach the CMS. Check PHP hosting and the database setup.'); }
+  catch (_) { throw new Error('Admin is temporarily unavailable. Please try again later.'); }
   let result;
   try { result = await response.json(); }
-  catch (_) { throw new Error('The server did not return JSON. Check that PHP is enabled on this hosting.'); }
+  catch (_) { throw new Error('Admin is temporarily unavailable. Please try again later.'); }
   if (!response.ok) throw new Error(result.error || 'Request failed.');
   return result;
 }

@@ -1,9 +1,11 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import handleCms from './api/cms.js';
 
 const port = Number(process.env.PORT || 4173);
 const root = path.resolve('dist');
+const cmsMode = process.argv.includes('--cms');
 const mime = {
   '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -19,7 +21,25 @@ const mime = {
 };
 
 http.createServer((req, res) => {
-  let p = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+  const url = new URL(req.url, 'http://localhost');
+  let p = decodeURIComponent(url.pathname);
+  if (p.startsWith('/api/')) {
+    if (cmsMode && p === '/api/cms.php') {
+      handleCms(req, res).catch(() => {
+        if (!res.headersSent) res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+        if (!res.writableEnded) res.end(JSON.stringify({ error: 'Local CMS error.' }));
+      });
+      return;
+    }
+    res.writeHead(503, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
+    res.end(JSON.stringify({ error: 'Run npm run dev:cms with Supabase environment variables to test the admin.' }));
+    return;
+  }
+  if (p.endsWith('.php') || p.startsWith('/backend/') || (p.startsWith('/uploads/') && !cmsMode)) {
+    res.writeHead(404);
+    res.end('Not found');
+    return;
+  }
   let f = path.join(root, p);
   if (fs.existsSync(f) && fs.statSync(f).isDirectory()) {
     f = path.join(f, 'index.html');
@@ -38,4 +58,4 @@ http.createServer((req, res) => {
   res.setHeader('content-type', mime[path.extname(f).toLowerCase()] || 'application/octet-stream');
   res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
   fs.createReadStream(f).pipe(res);
-}).listen(port, () => console.log(`http://localhost:${port}`));
+}).listen(port, '127.0.0.1', () => console.log(`http://localhost:${port}`));

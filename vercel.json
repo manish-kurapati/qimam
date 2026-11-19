@@ -3,5 +3,6 @@
   "outputDirectory": "dist",
   "framework": null,
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "rewrites": [{"source":"/api/cms.php","destination":"/api/cms"}]
 }

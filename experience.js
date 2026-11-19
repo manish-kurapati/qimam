@@ -155,7 +155,7 @@ const copy = {
   }
 };
 
-let lang = localStorage.getItem('qimam-language') === 'ar' ? 'ar' : 'en';
+let lang = (location.search || '').match(/[?&]cms_lang=(ar|en)(?:&|$)/)?.[1] || (localStorage.getItem('qimam-language') === 'ar' ? 'ar' : 'en');
 let route = location.pathname.replace(/\/+$/, '') || '/';
 const t = key => copy[lang][key];
 const l = item => item[lang];
@@ -248,7 +248,7 @@ function equipmentPage() {
   const conceptNote = lang === 'ar' ? 'فئات المعدات المذكورة في الملف التعريفي للشركة. الصور المتاحة من كتالوج SANY الرسمي وتمثل فئات المعدات، وليست توثيقاً لمعدات مملوكة للشركة.' : 'Equipment types from the company profile. Available photos are from the official SANY catalogue and represent equipment categories; they do not document ownership of specific machines.';
   return `${pageHero(t('equipment'),t('equipmentTitlePage'),t('equipmentBodyPage'),'equipment-sany-excavator.jpg')}
   <section class="section equipment-page"><div class="shell"><div class="equipment-intro reveal"><span class="eyebrow">${t('equipmentEyebrow')}</span><p>${conceptNote}</p></div>
-  <div class="equipment-list">${equipment.map((item,index)=>`<article class="equipment-item reveal" style="--delay:${(index%3)*70}ms"><div class="equipment-item-image">${item.image ? `<img src="${A}${item.image}" alt="${lang === 'ar' ? item.ar : item.en} — SANY product image" loading="lazy">` : `<div class="equipment-image-pending"><span>${lang === 'ar' ? 'صورة المنتج قيد التحقق' : 'Product photo under review'}</span></div>`}<img class="equipment-qimam-mark" src="${A}qimam-official-logo.png" alt="${COMPANY[lang]}"></div><div class="equipment-item-content"><span class="eyebrow">${t('equipment')}</span><h2>${lang === 'ar' ? item.ar : item.en}</h2>${item.source ? `<a href="${item.source}" target="_blank" rel="noopener noreferrer">${lang === 'ar' ? 'المصدر: SANY الرسمية' : 'Official SANY source'} ${arrow}</a>` : ''}</div></article>`).join('')}</div></div></section>${contactBanner()}`;
+  <div class="equipment-list">${equipment.map((item,index)=>`<article class="equipment-item reveal" style="--delay:${(index%3)*70}ms"><div class="equipment-item-image"><img src="${A}${item.image || 'equipment-image-pending.svg'}" alt="${lang === 'ar' ? item.ar : item.en}" loading="lazy"><img class="equipment-qimam-mark" src="${A}qimam-official-logo.png" alt="${COMPANY[lang]}"></div><div class="equipment-item-content"><span class="eyebrow">${t('equipment')}</span><h2>${lang === 'ar' ? item.ar : item.en}</h2>${item.source ? `<a href="${item.source}" target="_blank" rel="noopener noreferrer">${lang === 'ar' ? 'المصدر: SANY الرسمية' : 'Official SANY source'} ${arrow}</a>` : ''}</div></article>`).join('')}</div></div></section>${contactBanner()}`;
 }
 
 function galleryPage() {
@@ -337,11 +337,13 @@ function runIntro() {
 }
 
 function render(withIntro=true) {
+  if (window.qimamCms?.preview) withIntro = false;
   document.body.classList.remove('menu-open');
   document.title = `${l(COMPANY)} | ${t('home')}`;
   document.querySelector('meta[name="description"]').content = lang === 'ar' ? 'شركة قمم الإنتاج للمقاولات المحدودة: أعمال الحفر والردم والتسويات الترابية والبنية التحتية في المملكة العربية السعودية.' : 'Qimam Al-Intaj Contracting Co. Ltd. specializes in earthworks, excavation, backfilling and infrastructure-related contracting in Saudi Arabia.';
   document.getElementById('app').innerHTML = (withIntro ? intro() : '') + nav() + `<main id="main-content">${content()}</main>` + footer();
   bind();
+  window.qimamCms?.apply();
   if (withIntro) runIntro();
 }
 

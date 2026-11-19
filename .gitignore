@@ -1,4 +1,11 @@
 node_modules/
+.env
+.env.*
 .DS_Store
 Thumbs.db
 scratch/
+backend/config.php
+dist/backend/config.php
+uploads/
+dist/uploads/
+backend/local-cms.json

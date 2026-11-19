@@ -76,6 +76,7 @@ const htmlTemplate = `<!doctype html>
 <body>
   <div id="app"></div>
   <script src="/workflows.js?v=${Date.now()}" defer></script>
+  <script src="/cms.js?v=${Date.now()}" defer></script>
   <script src="/experience.js?v=${Date.now()}" defer></script>
 </body>
 </html>`;
@@ -86,11 +87,14 @@ for (const route of routes) {
   fs.writeFileSync(path.join(dir, 'index.html'), htmlTemplate);
 }
 
-for (const file of ['experience.css', 'experience.js', 'workflows.js']) {
+for (const file of ['experience.css', 'experience.js', 'workflows.js', 'cms.js']) {
   fs.copyFileSync(file, path.join('dist', file));
 }
 
 fs.cpSync('assets', 'dist/assets', { recursive: true });
+fs.cpSync('admin', 'dist/admin', { recursive: true });
+fs.writeFileSync('dist/cms-routes.json', JSON.stringify(routes.map(x => '/' + x), null, 2));
+fs.writeFileSync('dist/cms-media.json', JSON.stringify(fs.readdirSync('assets').filter(x => /\.(png|jpe?g|webp|gif)$/i.test(x)).map(x => '/assets/' + x), null, 2));
 fs.writeFileSync('index.html', htmlTemplate);
 fs.writeFileSync('404.html', htmlTemplate);
 fs.writeFileSync(path.join('dist', '404.html'), htmlTemplate);

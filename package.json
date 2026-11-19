@@ -1,1 +1,1 @@
-{"name":"qemam-redesign","version":"1.0.0","private":true,"scripts":{"build":"node build.mjs","dev":"node dev-server.mjs","test":"node smoke-test.mjs"}}
+{"name":"qemam-redesign","version":"1.0.0","private":true,"type":"module","scripts":{"build":"node build.mjs","dev":"node dev-server.mjs","dev:cms":"node dev-server.mjs --cms","test":"node smoke-test.mjs"}}
